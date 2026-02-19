@@ -6,11 +6,11 @@
 #include <algorithm> // for clamp
 
 
-class LevelWithTiles :
+class LevelTwoWithTiles :
     public Scene
 {
 public:
-    LevelWithTiles(sf::RenderWindow& window, Input& input, GameState& gameState, AudioManager& audio);
+    LevelTwoWithTiles(sf::RenderWindow& window, Input& input, GameState& gameState, AudioManager& audio);
 
     void handleInput(float dt) override;
     void update(float dt) override;
@@ -19,7 +19,6 @@ public:
     void onEnd() override;
 
 private:
-    void waveFlags();
     void updateCameraAndBackground();
 
     TileMap m_tilemap;
@@ -32,7 +31,7 @@ private:
     sf::IntRect m_flagUp;               // frames for eeach
     sf::IntRect m_flagDown;
     std::vector<int> m_flagIndices;     // index of flags in the level
-    float m_flagTimer = 0.f;                  // animation timer
+    float m_flagTimer;                  // animation timer
     float m_promptTimer;
 
     const float PROMPT_TIME = 2.f;

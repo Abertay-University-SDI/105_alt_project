@@ -12,6 +12,7 @@
 #include "Framework/AudioManager.h"
 #include "Framework/GameState.h"
 #include "LevelWithTiles.h"
+#include "LevelTwoWithTiles.h"
 
 #ifndef SFML_VERSION_MAJOR
 	#error "SFML 3 is required for this framework."
@@ -91,6 +92,7 @@ int main()
 
 	Menu menu(window, input, gameState, audioManager);
 	LevelWithTiles tile_level(window, input, gameState, audioManager);
+	LevelTwoWithTiles tile_level_two(window, input, gameState, audioManager);
 	Scene* currentScene = &menu;
 
 	// Initialise objects for delta time
@@ -101,7 +103,8 @@ int main()
 	std::map<State, Scene*> sceneRegistry =
 	{
 		{State::MENU, &menu},
-		{State::LEVELONE, &tile_level}
+		{State::LEVELONE, &tile_level},
+		{State::LEVELTWO, &tile_level_two}
 	};
 	
 
