@@ -26,7 +26,7 @@ public:
 	// Control sprite speed and direction
 	void setVelocity(sf::Vector2f vel);
 	void setVelocity(float vx, float vy);
-	sf::Vector2f getVelocity();
+	sf::Vector2f getVelocity() const;
 
 	// Sprite state
 	bool isAlive() const { return m_alive; };
@@ -35,10 +35,10 @@ public:
 	// For sprite collision, set collider box, get collider box, and dedicated virtual function for collision response
 	bool isCollider() const { return m_collider; };
 	void setCollider(bool b) { m_collider = b; };
-	sf::FloatRect getCollisionBox();
+	sf::FloatRect getCollisionBox() const;
 	void setCollisionBox(float x, float y, float width, float height);
 	void setCollisionBox(sf::FloatRect fr);
-	virtual void collisionResponse(GameObject* collider);
+	virtual void collisionResponse(GameObject& collider);
 
 	// Set the input component
 	void setInput(Input* in) { m_input = in; };

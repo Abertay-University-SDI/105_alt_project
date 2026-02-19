@@ -34,7 +34,7 @@ sf::IntRect Animation::getCurrentFrame()
 	{
 		// We negate the width to flip the sprite horizontally
 		m_frame = sf::IntRect(
-			{ m_frame.position.x, m_frame.position.y },
+			{ m_frame.position.x + m_frame.size.x, m_frame.position.y },
 			{ -m_frame.size.x, m_frame.size.y }
 		);
 	}

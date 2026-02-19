@@ -12,18 +12,7 @@ class Input
 {
 public:
 	enum class MouseState { UP, DOWN, PRESSED };
-private:
-	// Mouse structure, store mouse relevant information
-	
 
-	struct Mouse
-	{
-		int x, y;
-		MouseState left, right;
-	};
-	
-
-public:
 	Input();
 	// Functions for setting key as pressed, released and checking current state.
 	void setKeyDown(sf::Keyboard::Scancode key);
@@ -48,6 +37,12 @@ public:
 	bool isRightMousePressed();
 	
 private:
+	// Mouse structure, store mouse relevant information
+	struct Mouse
+	{
+		int x, y;
+		MouseState left, right;
+	};
 	// booleans representing keys (pressed = true, released = false)
 	std::vector<bool> m_keys;
 	std::vector<bool> m_previousKeys;

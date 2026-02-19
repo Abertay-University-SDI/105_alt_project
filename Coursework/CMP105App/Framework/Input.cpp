@@ -100,7 +100,7 @@ void Input::setLeftMouse(MouseState state)
 }
 bool Input::isLeftMouseDown()
 {
-	if (m_mouse.left == MouseState::DOWN )
+	if (m_mouse.left == MouseState::DOWN || m_mouse.left == MouseState::PRESSED)
 	{
 		return true;
 	}
@@ -121,9 +121,10 @@ void Input::setRightMouse(MouseState state)
 {
 	m_mouse.right = state;
 }
+
 bool Input::isRightMouseDown()
 {
-	if (m_mouse.right == MouseState::DOWN )
+	if (m_mouse.right == MouseState::DOWN || m_mouse.right == MouseState::PRESSED)
 	{
 		return true;
 	}

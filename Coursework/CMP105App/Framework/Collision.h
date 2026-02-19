@@ -10,11 +10,14 @@
 class Collision
 {
 public:
+
 	// Check AABB for collision. Returns true if collision occurs.
-	static bool checkBoundingBox(GameObject* sp1, GameObject* sp2);
-	// Check collision with box and point. Returns true if collision occurs.
-	static bool checkBoundingBox(GameObject* s1, sf::Vector2i s2);
+	static bool checkBoundingBox(const GameObject& s1, const GameObject& s2);
+
+	// check for collision between gameobject and point. Returns true if collision occurs.
+	static bool checkBoundingBox(const GameObject& s1, const sf::Vector2i& point);
+
 	// Check bounding circle collision. Returns true if collision occurs.
-	static bool checkBoundingCircle(GameObject* sp1, GameObject* sp2);
+	static bool checkBoundingCircle(const GameObject& s1, const GameObject& s2);
 
 };

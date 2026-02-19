@@ -20,7 +20,6 @@ class BaseLevel
 public:
 
 	BaseLevel(sf::RenderWindow& hwnd, Input& in, GameState& gs, AudioManager& aud);
-	BaseLevel(sf::RenderWindow& hwnd);
 	virtual ~BaseLevel() = default;
 
 	virtual void handleInput(float dt) = 0;

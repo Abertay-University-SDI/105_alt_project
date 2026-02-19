@@ -6,9 +6,12 @@
 // @reviser William Kavanagh (2025)
 
 #include <iostream>
-#include "Level.h"
+#include "Scene.h"
+#include "Menu.h"
+#include "LevelThatSaves.h"
 #include "Framework/AudioManager.h"
 #include "Framework/GameState.h"
+#include "LevelWithTiles.h"
 
 #ifndef SFML_VERSION_MAJOR
 	#error "SFML 3 is required for this framework."
@@ -73,8 +76,9 @@ void windowProcess(sf::RenderWindow& window, Input& in)
 
 int main()
 {
+
 	//Create the window
-	sf::RenderWindow window(sf::VideoMode({ 800, 600 }), "cmp105 framework");
+	sf::RenderWindow window(sf::VideoMode({ 432, 432 }), "Dino Handyman");
 	window.setVerticalSyncEnabled(true);
 
 	// Initialise input and manager objects.
@@ -82,12 +86,24 @@ int main()
 	Input input;
 	GameState gameState;
 
+
 	// Create level objects that may reference manager objects
-	Level level(window, input, gameState, audioManager);
+
+	Menu menu(window, input, gameState, audioManager);
+	LevelWithTiles tile_level(window, input, gameState, audioManager);
+	Scene* currentScene = &menu;
 
 	// Initialise objects for delta time
 	sf::Clock clock;
 	float deltaTime = 0.f;
+
+	gameState.setCurrentState(State::MENU);
+	std::map<State, Scene*> sceneRegistry =
+	{
+		{State::MENU, &menu},
+		{State::LEVELONE, &tile_level}
+	};
+	
 
 	// Game Loop
 	while (window.isOpen())
@@ -100,10 +116,18 @@ int main()
 		deltaTime = clock.restart().asSeconds();
 		if (deltaTime > 0.1f) deltaTime = 0.1f; // Clamp delta time to avoid large jumps
 
-		// Call standard game loop functions (input, update and render)
-		level.handleInput(deltaTime);
-		level.update(deltaTime);
-		level.render();
+		State requestedState = gameState.getCurrentState();
+		if (sceneRegistry[requestedState] != currentScene)
+		{
+			currentScene->onEnd();
+			currentScene = sceneRegistry[requestedState];
+			currentScene->onBegin();
+		}
+		// run the core loop for the current scene
+		currentScene->handleInput(deltaTime);
+		currentScene->update(deltaTime);
+		currentScene->render();
+
 
 		// Update input class, handle pressed keys
 		// Must be done last.
