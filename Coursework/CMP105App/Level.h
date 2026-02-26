@@ -5,7 +5,6 @@
 #include "Framework/Collision.h"
 #include "Bird.h"
 #include "Worm.h"
-#include "HUD.h"
 #include <fstream>
 
 
@@ -39,7 +38,6 @@ private:
 	sf::Text m_text;
 	Bird m_bird;
 	sf::Texture m_birdTexture;
-	HUD m_hud;
 
 	float m_spawnTimer = 0.f;
 	std::vector<HypeText> m_messages;

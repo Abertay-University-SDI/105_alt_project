@@ -113,7 +113,6 @@ void Level::render()
 		m_window.draw(msg.text);
 	}	
 	m_window.draw(m_text);
-	m_hud.render(m_window);
 	endDraw();
 }
 
