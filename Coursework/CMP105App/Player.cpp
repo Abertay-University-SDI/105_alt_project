@@ -38,8 +38,15 @@ void Player::handleInput(float dt)
 		m_accel.x += SPEED;
 	if (m_input->isPressed(sf::Keyboard::Scancode::Space) && m_isGrounded)
 	{
-		m_velocity.y -= JUMP_FORCE;
+		m_velocity.y = - JUMP_FORCE;
 		m_isGrounded = false;	// can't be jumping if we're in the air
+		m_audio->playSoundbyName("jump");
+	}
+	else if (m_input->isPressed(sf::Keyboard::Scancode::Space) && !m_isGrounded && m_canDoubleJump && !m_hasDoubleJumped)
+	{
+		m_velocity.y = - JUMP_FORCE;
+		m_hasDoubleJumped = true;
+		m_audio->playSoundbyName("jump");
 	}
 	if (m_input->isKeyDown(sf::Keyboard::Scancode::R))	// Reset (for debugging)
 	{
@@ -59,14 +66,15 @@ void Player::handleInput(float dt)
 		if (inLeverRange() && !m_leverPulled)
 		{
 			m_leverPulled = true;
+			m_audio->playSoundbyName("wind");
 		}
 		if (m_leverPulled && inEndRange())
 		{
 			m_gameEndTriggered = true;
-			std::cout << "could end\n";
 		}
 	}
 
+	// for debugging: "Where am I?"
 	if (m_input->isPressed(sf::Keyboard::Scancode::T))
 	{
 		std::cout << getPosition().x << "/" << getPosition().y << "\n";
@@ -142,6 +150,7 @@ void Player::collisionResponse(GameObject& collider)
 			move({ 0, -overlap->size.y });
 			m_velocity.y = 0;       // Stop falling
 			m_isGrounded = true;    // Enable jumping
+			m_hasDoubleJumped = false;	// more jumping possible
 		}
 		else
 		{

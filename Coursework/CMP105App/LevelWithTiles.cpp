@@ -6,7 +6,6 @@ LevelWithTiles::LevelWithTiles(sf::RenderWindow& window, Input& input, GameState
 	GameObject tile;
 	std::vector<GameObject> tileSet;
 
-	int flag_index = 111;	// position in tiles png of the flag
 	int num_columns = 20;
 	int num_rows = 9;
 	int tile_size = 18;      // Visual size of the tile
@@ -29,14 +28,6 @@ LevelWithTiles::LevelWithTiles(sf::RenderWindow& window, Input& input, GameState
 		if (col <= 4 || col >= 12) tile.setCollider(true);
 		else tile.setCollider(false);
 		tileSet.push_back(tile);
-		if (i == flag_index)
-		{
-			m_flagDown = tile.getTextureRect();
-		}
-		if (i - 1 == flag_index)
-		{
-			m_flagUp = tile.getTextureRect();
-		}
 	}
 
 	// Add Blank
@@ -47,36 +38,16 @@ LevelWithTiles::LevelWithTiles(sf::RenderWindow& window, Input& input, GameState
 
 	sf::Vector2u mapDimensions{ 40, 8 };
 	std::vector<int> tileMap = {
-		
-		b,   111, b,   b,   b,   111, b,   b,   111, b,   b,   111, b,   b,   b,   b,   b,   b,   b,   b,
-		b,   b,   b,   b,   b,   b,   b,   b,   b,   b,   b,   b,   b,   b,   b,   b,   b,   b,   b,   b,
-
-		b,   131, b,   b,   b,   131, b,   b,   131, b,   21,  22,  23,  b,   b,   b,   21,  22,  22,  22,
-		22,  23,  b,   b,   b,   21,  22,  22,  23,  b,   b,   b,   b,   b,   b,   b,   b,   b,   b,   b,
-
-		b,   131, b,   b,   b,	 131, b,   21,  22,  22,  121, 122, 123, b,   b,   b,   121, 122, 122, 122,
-		122, 123, b,   b,   b,   121, 122, 122, 123, 22,  22,  23,  b,   b,   b,   b,   b,   b,   66, b,
-
-		b,   131, b,   b,   21,  22,  22,  121, 122, 122, 121, 122, 123, b,   b,   b,   121, 122, 122, 122,
-		122, 123, b,   b,   b,   121, 122, 122, 123, 122, 122, 123, 22,  22,  22,  22,  22,  22,  22,  23,
-
-		21,  22,  22,  22,  121, 122, 122, 121, 122, 122, 121, 122, 123, b,   b,   b,   121, 122, 122, 122,
-		122, 123, b,   b,   b,   121, 122, 122, 123, 122, 122, 123, 122, 122, 122, 122, 122, 122, 122, 123,
-
-		121, 122, 122, 122, 121, 122, 122, 121, 122, 122, 121, 122, 123, b,   b,   b,   121, 122, 122, 122,
-		122, 123, b,   b,   b,   121, 122, 122, 123, 122, 122, 123, 122, 122, 122, 122, 122, 122, 122, 123,
-
-		121, 122, 122, 122, 121, 122, 122, 121, 122, 122, 121, 122, 123, b,   b,   b,   121, 122, 122, 122,
-		122, 123, b,   b,   b,   121, 122, 122, 123, 122, 122, 123, 122, 122, 122, 122, 122, 122, 122, 123,
-
-		141, 142, 142, 142, 141, 142, 142, 141, 142, 142, 141, 142, 143, b,   b,   b,   141, 142, 142, 142,
-		142, 143, b,   b,   b,   141, 142, 142, 143, 142, 142, 143, 142, 142, 142, 142, 142, 142, 142, 143
+		b  , b  , b  , b  , b  , b  , b  , b  , b  , b  , b  , b  , b  , b, b, b, b  , b  , b  , b  , b  , b  , b, b, b, b  , b  , b  , b  , b  , b  , b  , b  , b  , b  , b  , b  , b  , b  , b  ,
+		b  , 131, b  , b  , b  , 131, b  , b  , b  , 131,  21,  22,  23, b, b, b,  21,  22,  22,  22,  22,  23, b, b, b,  21,  22,  22,  23, b  , b  , b  , b  , b  , b  , b  , b  , b  , b  , b  ,
+		b  , 131, b  , b  , b  , 131, b  , 21 ,  22, 22 , 121, 122, 123, b, b, b, 121, 122, 122, 122, 122, 123, b, b, b, 121, 122, 122, 123, 22 , 22 , 23 , b  , b  , b  , b  , b  , b  , b  , b  ,
+		b  , 131, b  , b  , 21 ,  22, 22 , 121, 122, 122, 121, 122, 123, b, b, b, 121, 122, 122, 122, 122, 123, b, b, b, 121, 122, 122, 123, 122, 122, 123, 22 , 22 , 22 , 22 , 22 , 22 , 22 , 23 ,
+		21 ,  22, 22 , 22 , 121, 122, 122, 121, 122, 122, 121, 122, 123, b, b, b, 121, 122, 122, 122, 122, 123, b, b, b, 121, 122, 122, 123, 122, 122, 123, 122, 122, 122, 122, 122, 122, 122, 123,
+		121, 122, 122, 122, 121, 122, 122, 121, 122, 122, 121, 122, 123, b, b, b, 121, 122, 122, 122, 122, 123, b, b, b, 121, 122, 122, 123, 122, 122, 123, 122, 122, 122, 122, 122, 122, 122, 123,
+		121, 122, 122, 122, 121, 122, 122, 121, 122, 122, 121, 122, 123, b, b, b, 121, 122, 122, 122, 122, 123, b, b, b, 121, 122, 122, 123, 122, 122, 123, 122, 122, 122, 122, 122, 122, 122, 123,
+		141, 142, 142, 142, 141, 142, 142, 141, 142, 142, 141, 142, 143, b, b, b, 141, 142, 142, 142, 142, 143, b, b, b, 141, 142, 142, 143, 142, 142, 143, 142, 142, 142, 142, 142, 142, 142, 143
 	};
-	for (int i = 0; i < tileMap.size(); i++)
-	{
-		if (tileMap[i] == flag_index) m_flagIndices.push_back(i);
-		
-	}
+	
 
 	m_tilemap.loadTexture("gfx/tilemap.png");
 	m_tilemap.setTileSet(tileSet);
@@ -111,7 +82,6 @@ LevelWithTiles::LevelWithTiles(sf::RenderWindow& window, Input& input, GameState
 		14,14,14,14,14,14,14,14,14,14,14,14,14,14,
 		22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22
 	};
-
 	m_bgtilemap.loadTexture("gfx/tilemap-backgrounds.png");
 	m_bgtilemap.setTileSet(tileSet);
 	m_bgtilemap.setTileMap(tileMap, mapDimensions);
@@ -122,45 +92,53 @@ LevelWithTiles::LevelWithTiles(sf::RenderWindow& window, Input& input, GameState
 	m_player.setInput(&m_input);
 	m_player.setEdges(0, WORLD_SIZE.x);
 
+	//m setup text
 	if (!m_font.openFromFile("font/bitcount.ttf")) std::cerr << "no font found";
 	m_alertText.setString("Who keeps turning\nthe wind off?");
 	m_alertText.setPosition({ 50, 150});
 	m_alertText.setCharacterSize(36);
 	m_alertText.setFillColor(sf::Color::Black);
 	m_promptTimer = PROMPT_TIME;
-	m_player.setLeverPosition({2730, 252});
+	if (!m_tileTexture.loadFromFile("gfx/tilemap.png")) std::cerr << "no tile image found";
+
+	// setup flags and end game pos
 	m_player.setEndGamePosition({ 24, 325 });
+	for (int i = 0; i < 3; i++)
+	{
+		Flag* new_flag = new Flag();
+		new_flag->setSize({ 72,72 });
+		new_flag->setPosition({72.f + (i * 288), 100.f});
+		new_flag->setTexture(&m_tileTexture);
+		new_flag->setup();	// ensure first frame is good.
+		m_flags.push_back(new_flag);
+	}
+
+	m_lever.setPosition({ 2730, 252 });
+	m_lever.setTexture(&m_tileTexture);
+	m_lever.setSize({ 72,72 });
+	m_lever.setUsed(false);
+	m_player.setLeverPosition({ 2730, 252 });
+	m_player.setAudio(&m_audio);
 }
 
 void LevelWithTiles::handleInput(float dt)
 {
 	m_player.handleInput(dt);
-}
 
-// swaps flag tile state and resets timer
-void LevelWithTiles::waveFlags()
-{
-	m_flagTimer = FLAG_TIME;
-	auto level = m_tilemap.getLevel();
-	for (int flagIndex : m_flagIndices)
-	{
-		if (m_isFlagUp) level->at(flagIndex).setTextureRect(m_flagDown);
-		else level->at(flagIndex).setTextureRect(m_flagUp);
-	}
-	m_isFlagUp = !m_isFlagUp;
-
+	if (m_input.isPressed(sf::Keyboard::Scancode::Escape))
+		m_gameState.setCurrentState(State::MENU);
 }
 
 void LevelWithTiles::update(float dt)
 {
-	
 
-	m_flagTimer -= dt;
-	if (m_flagTimer <= 0.f && m_flagLeverPulled)
+	if (m_flagLeverPulled)
 	{
-		waveFlags();
+		for (auto& flag : m_flags) flag->update(dt);
 	}
+	m_lever.update(dt);
 	m_player.update(dt);
+
 
 	std::vector<GameObject>& level = *m_tilemap.getLevel();
 	for (auto& t : level)
@@ -209,6 +187,11 @@ void LevelWithTiles::update(float dt)
 	{
 		if (!m_flagLeverPulled) m_promptTimer = 0;
 		m_flagLeverPulled = true;
+		m_lever.setUsed(true);
+	}
+	else
+	{
+		m_lever.setUsed(false);
 	}
 	if (m_player.getGameEndTriggered())
 	{
@@ -216,8 +199,17 @@ void LevelWithTiles::update(float dt)
 		m_gameState.setCurrentState(State::MENU);
 	}
 
+
+	// reset if fallen too far
+	if (m_player.getPosition().y > 1200)
+	{
+		m_player.reset();
+		m_audio.playSoundbyName("death");
+	}
+
 	// camera follows player, bounded.
 	updateCameraAndBackground();
+
 }
 
 void LevelWithTiles::updateCameraAndBackground()
@@ -242,6 +234,8 @@ void LevelWithTiles::render()
 	beginDraw();
 	m_bgtilemap.render(m_window);
 	m_tilemap.render(m_window);
+	m_window.draw(m_lever);
+	for (auto& flag : m_flags) m_window.draw(*flag);
 	m_window.draw(m_player);
 	m_window.draw(m_alertText);
 	endDraw();
@@ -250,6 +244,7 @@ void LevelWithTiles::render()
 void LevelWithTiles::onBegin()
 {
 	std::cout << "Level one has been started\n";
+	m_audio.playMusicbyName("bgm1");
 	
 }
 
@@ -265,4 +260,7 @@ void LevelWithTiles::onEnd()
 	m_alertText.setCharacterSize(36);
 	m_alertText.setFillColor(sf::Color::Black);
 	m_promptTimer = PROMPT_TIME;
+	// sfx
+	m_audio.stopAllSounds();
+	m_audio.stopAllMusic();
 }

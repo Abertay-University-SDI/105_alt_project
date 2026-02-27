@@ -2,6 +2,7 @@
 #include "Framework/GameObject.h"
 #include "Framework/Animation.h"
 #include <iostream>
+#include "Framework/AudioManager.h"
 
 
 class Player :
@@ -21,6 +22,9 @@ public:
     bool getLeverPulled() { return m_leverPulled; };
     bool getGameEndTriggered() { return m_gameEndTriggered; };
     void reset();
+    void setCanDoubleJump(bool value) { m_canDoubleJump = value; };
+    bool canDoubleJump() { return m_canDoubleJump; };
+    void setAudio(AudioManager* audio) { m_audio = audio; };
 
 private:
     sf::Texture m_dinoTexture;
@@ -37,6 +41,9 @@ private:
     sf::Vector2f m_endPosition;
     bool m_leverPulled = false;
     bool m_gameEndTriggered = false;
+    bool m_canDoubleJump;
+    bool m_hasDoubleJumped;
+    AudioManager* m_audio;
 
     const float SPRINT_COOLDOWN = 2.0f;
     const float SPRINT_SPEED_MULT = 2.5f;

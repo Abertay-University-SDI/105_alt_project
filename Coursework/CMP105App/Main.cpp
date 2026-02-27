@@ -100,6 +100,8 @@ int main()
 	float deltaTime = 0.f;
 
 	gameState.setCurrentState(State::MENU);
+	menu.onBegin();
+
 	std::map<State, Scene*> sceneRegistry =
 	{
 		{State::MENU, &menu},
@@ -107,7 +109,6 @@ int main()
 		{State::LEVELTWO, &tile_level_two}
 	};
 	
-
 	// Game Loop
 	while (window.isOpen())
 	{
@@ -130,7 +131,6 @@ int main()
 		currentScene->handleInput(deltaTime);
 		currentScene->update(deltaTime);
 		currentScene->render();
-
 
 		// Update input class, handle pressed keys
 		// Must be done last.
