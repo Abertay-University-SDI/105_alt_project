@@ -6,7 +6,7 @@ _NOTE: This is an example based on the alternative project as if submitted for t
 
 **Dino Hanyman: Spanner in the Works** 
 
-This extension will turn the game into a simple Metroidvania where the dino handyman will unlock three new abilities to progress through one large level. This will include dash from level one, as well as the ability to through spanners as a form of attacking enemies and a double jump.
+This extension will turn the game into a simple Metroidvania where the dino handyman will unlock three new abilities to progress through one large level. This will include dash from level one, as well as the ability to throw spanners as a form of attacking enemies and a double jump.
 
 **Controls:** 
 
