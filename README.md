@@ -1,6 +1,6 @@
-# CMP105 2026 Final Submission 
+# CMP105 Alternative Project
 
-_NOTE: This is an example based on the alternative project_
+_NOTE: This is an example based on the alternative project as if submitted for the Trunk assignment_
 
 ## Game 
 
